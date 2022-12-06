@@ -26,8 +26,8 @@ class CaptureActivity : AppCompatActivity() {
         setContentView(R.layout.activity_capture)
 
         classifier = TFLiteClassifier.create(
-            assets, Companion.MODEL_PATH,
-            Companion.LABEL_PATH, Companion.INPUT_SIZE
+            assets, MODEL_PATH,
+            LABEL_PATH, INPUT_SIZE
         )
 
         fotoapparat = Fotoapparat(
@@ -35,13 +35,13 @@ class CaptureActivity : AppCompatActivity() {
             view = cmv_camera_preview
         )
 
-        cmv_camera_preview.setOnClickListener { _ ->
+        cmv_camera_preview.setOnClickListener {
             GlobalScope.launch((Dispatchers.Default)) {
                 val bitmap: Bitmap = fotoapparat.takePicture().toBitmap().await().bitmap
 
                 // TODO 1: Rescale the bitmap to INPUT_SIZE width and height using the Bitmap.createScaledBitmap method.
 
-                // TODO 2: Run the recognizer which will return the recognitions.
+                // TODO 2: Run the classifier which will return the recognitions.
 
                 withContext(Dispatchers.Main) {
                     // TODO 3: Show the recognitions using the common Toast widget. Make use of joinToString method to concat multiple items.
